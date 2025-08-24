@@ -1,2 +1,14 @@
-- name: publish-action
-  uses: tu6ge/publish-action@v0.4.6
+name: Publish
+
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+
+jobs:
+    publish:
+        runs-on: ubuntu-latest
+        steps:
+        - uses: tu6ge/publish-action@v0.4.6
+          
