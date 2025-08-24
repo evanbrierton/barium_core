@@ -1,7 +1,9 @@
 [package]
-name = "barium-core"
+name = "barium_core"
 version = "0.1.0"
 edition = "2024"
+description = "Barium figures out how to optimise a workout by figuring out the optimal plates to use for each (dumb/bar)bell for each exercise."
+license = "MIT"
 
 [dependencies]
 itertools = "0.14.0"
