@@ -1,6 +1,6 @@
 [package]
 name = "barium_core"
-version = "0.3.0"
+version = "0.3.1"
 edition = "2024"
 description = "Barium figures out how to optimise a workout by figuring out the optimal plates to use for each (dumb/bar)bell for each exercise."
 license = "MIT"
