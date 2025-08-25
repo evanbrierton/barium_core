@@ -1,8 +1,9 @@
 use derive_more::Display;
+use serde::{Deserialize, Serialize};
 
 use crate::BarKind;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Display)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Display, Serialize, Deserialize)]
 #[display("{kind} ({gauge})")]
 pub struct Bar {
     weight: u32,

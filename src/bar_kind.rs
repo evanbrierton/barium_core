@@ -1,8 +1,8 @@
-use core::fmt::Display;
-
 use derive_more::From;
+use serde::{Deserialize, Serialize};
+use strum::{Display};
 
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash, From)]
+#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash, From, Display, Serialize, Deserialize)]
 pub enum BarKind {
     Dumbbell,
     Barbell,
@@ -14,15 +14,6 @@ impl BarKind {
         match self {
             BarKind::Dumbbell => 4,
             BarKind::Barbell => 2,
-        }
-    }
-}
-
-impl Display for BarKind {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        match self {
-            BarKind::Dumbbell => write!(f, "Dumbbell"),
-            BarKind::Barbell => write!(f, "Barbell"),
         }
     }
 }

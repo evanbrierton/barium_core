@@ -11,4 +11,6 @@ clap = "4.5.45"
 derive_more = { version = "2.0.1", features = ["into_iterator", "from", "display"] }
 itertools = "0.14.0"
 petgraph = "0.8.2"
+serde = { version = "1.0.219", features = ["derive"] }
+strum = { version = "0.27.2", features = ["derive"] }
 thiserror = "2.0.16"

@@ -1,6 +1,7 @@
 use derive_more::Display;
+use serde::{Deserialize, Serialize};
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Display)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Display, Serialize, Deserialize)]
 #[display("{weight} ({gauge})")]
 pub struct Plate {
     weight: u32,
