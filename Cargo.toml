@@ -6,6 +6,9 @@ description = "Barium figures out how to optimise a workout by figuring out the 
 license = "MIT"
 
 [dependencies]
+anyhow = "1.0.99"
+clap = "4.5.45"
+derive_more = { version = "2.0.1", features = ["into_iterator", "from", "display"] }
 itertools = "0.14.0"
 petgraph = "0.8.2"
 thiserror = "2.0.16"

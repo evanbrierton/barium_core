@@ -1,6 +1,8 @@
 use core::fmt::Display;
 
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash)]
+use derive_more::From;
+
+#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash, From)]
 pub enum BarKind {
     Dumbbell,
     Barbell,

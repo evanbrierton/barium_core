@@ -1,8 +1,9 @@
-use std::fmt::Display;
+use derive_more::Display;
 
 use crate::BarKind;
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Display)]
+#[display("{kind} ({gauge})")]
 pub struct Bar {
     weight: u32,
     gauge: u32,
@@ -32,11 +33,5 @@ impl Bar {
     #[must_use]
     pub fn kind(&self) -> &BarKind {
         &self.kind
-    }
-}
-
-impl Display for Bar {
-    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{} ({})", self.kind, self.gauge)
     }
 }

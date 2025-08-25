@@ -1,4 +1,7 @@
-#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord)]
+use derive_more::Display;
+
+#[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Display)]
+#[display("{weight} ({gauge})")]
 pub struct Plate {
     weight: u32,
     gauge: u32,

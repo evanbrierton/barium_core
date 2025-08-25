@@ -1,8 +1,10 @@
 use std::collections::HashMap;
 
+use derive_more::Display;
+
 use crate::{Bar, Dumbbell};
 
-#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash)]
+#[derive(Clone, Copy, Debug, PartialEq, Eq, PartialOrd, Ord, Hash, Display)]
 pub struct GymStateId(pub usize);
 
 #[derive(Clone, Debug, PartialEq, Eq)]

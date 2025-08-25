@@ -1,34 +1,21 @@
 use std::collections::HashMap;
 
+use derive_more::{From, IntoIterator};
+
 use crate::{bar::Bar, dumbbell::Dumbbell};
 
-#[derive(Default)]
-pub struct Workout {
-    dumbbells: HashMap<Bar, Vec<Dumbbell>>,
-}
+#[derive(Default, IntoIterator, From)]
+pub struct Workout(pub HashMap<Bar, Vec<Dumbbell>>);
 
 impl Workout {
-    #[must_use]
-    pub fn new(dumbbells: HashMap<Bar, Vec<Dumbbell>>) -> Self {
-        Workout { dumbbells }
-    }
 
     #[must_use]
     pub fn bars(&self) -> Vec<Bar> {
-        self.dumbbells.keys().copied().collect()
+        self.0.keys().copied().collect()
     }
 
     #[must_use]
     pub fn get(&self, bar: Bar) -> Vec<Dumbbell> {
-        self.dumbbells.get(&bar).cloned().unwrap_or_default()
-    }
-}
-
-impl IntoIterator for Workout {
-    type Item = (Bar, Vec<Dumbbell>);
-    type IntoIter = std::collections::hash_map::IntoIter<Bar, Vec<Dumbbell>>;
-
-    fn into_iter(self) -> Self::IntoIter {
-        self.dumbbells.into_iter()
+        self.0.get(&bar).cloned().unwrap_or_default()
     }
 }
