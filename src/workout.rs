@@ -5,6 +5,7 @@ use derive_more::{From, IntoIterator};
 use crate::{bar::Bar, dumbbell::Dumbbell};
 
 #[derive(Default, IntoIterator, From)]
+#[into_iterator(owned, ref, ref_mut)]
 pub struct Workout(pub HashMap<Bar, Vec<Dumbbell>>);
 
 impl Workout {

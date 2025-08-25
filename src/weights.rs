@@ -5,6 +5,7 @@ use derive_more::{From, IntoIterator};
 use crate::BarKind;
 
 #[derive(Clone, IntoIterator, From)]
+#[into_iterator(owned, ref, ref_mut)]
 pub struct Weights(pub HashMap<BarKind, Vec<u32>>);
 
 impl Weights {
