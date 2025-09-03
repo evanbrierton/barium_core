@@ -83,7 +83,7 @@ impl Display for Dumbbell {
 
         write!(
             f,
-            "{:?} ({}kg)",
+            "[{}] ({}kg)",
             plates,
             self.weight().get::<kilogram>(),
         )
