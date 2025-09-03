@@ -4,6 +4,8 @@ use derive_more::From;
 use serde::{Deserialize, Serialize};
 use strum::{Display};
 
+use crate::GymError;
+
 #[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash, From, Display, Serialize, Deserialize)]
 pub enum BarKind {
     Dumbbell,
@@ -21,13 +23,13 @@ impl BarKind {
 }
 
 impl FromStr for BarKind {
-    type Err = String;
+    type Err = GymError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         match s {
             "d" | "db" | "dumbbell" => Ok(BarKind::Dumbbell),
             "b" | "bb" | "barbell" => Ok(BarKind::Barbell),
-            _ => Err("Invalid bar kind".to_string()),
+            _ => Err(GymError::InvalidBarKind(s.to_string())),
         }
     }
 }
