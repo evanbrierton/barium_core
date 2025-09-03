@@ -1,6 +1,7 @@
 use std::{fmt::Display, hash::Hash};
 
 use itertools::Itertools;
+use rational_extensions::to_dec_string;
 use uom::si::{mass::kilogram, rational64::Mass};
 
 use crate::{Bar, Plate};
@@ -78,7 +79,8 @@ impl Display for Dumbbell {
             .iter()
             .map(|p| p.weight())
             .map(|w| w.get::<kilogram>())
-            .map(|w| format!("{w}"))
+            .map(|w| to_dec_string(&w, 2))
+            .map(|s| s.trim_end_matches('0').trim_end_matches('.').to_string())
             .join(", ");
 
         write!(
