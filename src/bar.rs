@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use uom::si::{
     length::centimeter,
     mass::kilogram,
-    u32::{Length, Mass},
+    rational64::{Length, Mass},
 };
 
 use crate::BarKind;

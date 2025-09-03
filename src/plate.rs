@@ -4,7 +4,7 @@ use serde::{Deserialize, Serialize};
 use uom::si::{
     length::centimeter,
     mass::kilogram,
-    u32::{Length, Mass},
+    rational64::{Length, Mass},
 };
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize)]

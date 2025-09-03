@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 
 use derive_more::{From, IntoIterator};
-use uom::si::u32::Mass;
+use uom::si::rational64::Mass;
 
 use crate::BarKind;
 

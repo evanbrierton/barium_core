@@ -1,6 +1,6 @@
 [package]
 name = "barium_core"
-version = "0.4.3"
+version = "0.5.3"
 edition = "2024"
 description = "Barium figures out how to optimise a workout by figuring out the optimal plates to use for each (dumb/bar)bell for each exercise."
 license = "MIT"
@@ -14,4 +14,4 @@ petgraph = "0.8.2"
 serde = { version = "1.0.219", features = ["derive"] }
 strum = { version = "0.27.2", features = ["derive"] }
 thiserror = "2.0.16"
-uom = { version = "0.37.0",  features = ["autoconvert", "u32", "si", "std", "serde"]}
+uom = { version = "0.37.0",  features = ["autoconvert", "rational64", "i32", "si", "std", "serde"]}

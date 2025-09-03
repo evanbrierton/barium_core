@@ -1,6 +1,6 @@
 use std::{fmt::Display, str::FromStr};
 
-use uom::si::{mass::kilogram, u32::Mass};
+use uom::si::{mass::kilogram, rational64::Mass};
 
 use crate::{BarKind, Dumbbell, GymError};
 

@@ -2,7 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 use itertools::Itertools;
 use petgraph::{algo, prelude::UnGraphMap};
-use uom::si::u32::Mass;
+use uom::si::rational64::Mass;
 
 use crate::{
     Bar, BarKind, Dumbbell, GymError, GymState, GymStateId, Plate, Requirement, Weights, Workout,
