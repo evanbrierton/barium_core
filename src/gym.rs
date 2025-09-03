@@ -158,7 +158,7 @@ impl Gym {
             let bars = self
                 .bar_options
                 .get(&requirements[requirement_index].bar_kind())
-                .ok_or(GymError::InvalidRequirement(
+                .ok_or(GymError::ImpossibleRequirement(
                     requirements[requirement_index],
                 ))?;
 
@@ -220,7 +220,7 @@ impl Gym {
                 return requirement_states[0]
                     .iter()
                     .min_by_key(|id| self.states[&bar_kind][id].plates())
-                    .ok_or(GymError::InvalidRequirement(requirements[0]))
+                    .ok_or(GymError::ImpossibleRequirement(requirements[0]))
                     .map(|id| vec![*id]);
             }
             _ => {}
@@ -262,7 +262,7 @@ impl Gym {
         let (&final_state, _) = dp[n - 1]
             .iter()
             .min_by_key(|(_, (cost, _))| *cost)
-            .ok_or(GymError::InvalidRequirement(requirements[n - 1]))?;
+            .ok_or(GymError::ImpossibleRequirement(requirements[n - 1]))?;
 
         let mut path = Vec::new();
         let mut current = final_state;

@@ -83,11 +83,6 @@ impl Display for Dumbbell {
             .map(|s| s.trim_end_matches('0').trim_end_matches('.').to_string())
             .join(", ");
 
-        write!(
-            f,
-            "[{}] ({}kg)",
-            plates,
-            self.weight().get::<kilogram>(),
-        )
+        write!(f, "[{}] ({}kg)", plates, self.weight().get::<kilogram>(),)
     }
 }
