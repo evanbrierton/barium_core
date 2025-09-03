@@ -1,3 +1,5 @@
+use std::str::FromStr;
+
 use derive_more::From;
 use serde::{Deserialize, Serialize};
 use strum::{Display};
@@ -14,6 +16,18 @@ impl BarKind {
         match self {
             BarKind::Dumbbell => 4,
             BarKind::Barbell => 2,
+        }
+    }
+}
+
+impl FromStr for BarKind {
+    type Err = String;
+
+    fn from_str(s: &str) -> Result<Self, Self::Err> {
+        match s {
+            "d" | "db" | "dumbbell" => Ok(BarKind::Dumbbell),
+            "b" | "bb" | "barbell" => Ok(BarKind::Barbell),
+            _ => Err("Invalid bar kind".to_string()),
         }
     }
 }
