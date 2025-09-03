@@ -1,19 +1,24 @@
 use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
+use uom::si::{
+    length::centimeter,
+    mass::kilogram,
+    u32::{Length, Mass},
+};
 
 use crate::BarKind;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Bar {
-    weight: u32,
-    gauge: u32,
+    weight: Mass,
+    gauge: Length,
     kind: BarKind,
 }
 
 impl Bar {
     #[must_use]
-    pub fn new(weight: u32, gauge: u32, kind: BarKind) -> Self {
+    pub fn new(weight: Mass, gauge: Length, kind: BarKind) -> Self {
         Bar {
             weight,
             gauge,
@@ -22,12 +27,12 @@ impl Bar {
     }
 
     #[must_use]
-    pub fn weight(&self) -> u32 {
+    pub fn weight(&self) -> Mass {
         self.weight
     }
 
     #[must_use]
-    pub fn gauge(&self) -> u32 {
+    pub fn gauge(&self) -> Length {
         self.gauge
     }
 
@@ -41,10 +46,10 @@ impl Display for Bar {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
         write!(
             f,
-            "{}({}) {}kg",
+            "{}({}cm) {}kg",
             self.kind,
-            self.gauge,
-            f64::from(self.weight) / 1000.0,
+            self.gauge.get::<centimeter>(),
+            self.weight.get::<kilogram>(),
         )
     }
 }

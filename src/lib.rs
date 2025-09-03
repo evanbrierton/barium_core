@@ -10,7 +10,6 @@ mod plate;
 mod requirement;
 mod weights;
 mod workout;
-mod units;
 
 pub(crate) use gym_state::GymState;
 pub(crate) use gym_state::GymStateId;

@@ -2,11 +2,13 @@ use std::str::FromStr;
 
 use derive_more::From;
 use serde::{Deserialize, Serialize};
-use strum::{Display};
+use strum::Display;
 
 use crate::GymError;
 
-#[derive(Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash, From, Display, Serialize, Deserialize)]
+#[derive(
+    Clone, Copy, Debug, PartialEq, PartialOrd, Ord, Eq, Hash, From, Display, Serialize, Deserialize,
+)]
 pub enum BarKind {
     Dumbbell,
     Barbell,

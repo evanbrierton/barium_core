@@ -1,6 +1,7 @@
 use std::{fmt::Display, hash::Hash};
 
 use itertools::Itertools;
+use uom::si::{mass::kilogram, u32::Mass};
 
 use crate::{Bar, Plate};
 
@@ -36,8 +37,8 @@ impl Dumbbell {
     }
 
     #[must_use]
-    pub fn weight(&self) -> u32 {
-        self.bar.weight() + self.plates.iter().map(|plate| plate.weight()).sum::<u32>() * 2
+    pub fn weight(&self) -> Mass {
+        self.bar.weight() + self.plates.iter().map(|plate| plate.weight()).sum::<Mass>() * 2
     }
 
     #[must_use]
@@ -71,17 +72,14 @@ impl Ord for Dumbbell {
 
 impl Display for Dumbbell {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        let kg_plates = self
+        let plates = self
             .plates
             .iter()
-            .map(|p| f64::from(p.weight()) / 1000.0)
-            .collect::<Vec<_>>();
+            .map(|p| p.weight())
+            .map(|w| w.get::<kilogram>())
+            .map(|w| format!("{w}"))
+            .join(", ");
 
-        write!(
-            f,
-            "{:?} ({}kg)",
-            kg_plates,
-            f64::from(self.weight()) / 1000.0,
-        )
+        write!(f, "[{}] ({}kg)", plates, self.weight().get::<kilogram>(),)
     }
 }

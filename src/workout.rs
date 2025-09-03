@@ -9,7 +9,6 @@ use crate::{bar::Bar, dumbbell::Dumbbell};
 pub struct Workout(pub HashMap<Bar, Vec<Dumbbell>>);
 
 impl Workout {
-
     #[must_use]
     pub fn bars(&self) -> Vec<Bar> {
         self.0.keys().copied().collect()

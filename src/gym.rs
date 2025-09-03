@@ -2,6 +2,7 @@ use std::collections::{HashMap, HashSet};
 
 use itertools::Itertools;
 use petgraph::{algo, prelude::UnGraphMap};
+use uom::si::u32::Mass;
 
 use crate::{
     Bar, BarKind, Dumbbell, GymError, GymState, GymStateId, Plate, Requirement, Weights, Workout,
@@ -28,14 +29,17 @@ impl Gym {
             .map(|bar| (*bar, Self::dumbbells(&plate_counts, bar)))
             .collect();
 
-        let weights = dumbbells.iter().fold(
-            HashMap::<BarKind, Vec<u32>>::new(),
-            |mut acc, (bar, dumbbells)| {
-                let weight = dumbbells.iter().map(Dumbbell::weight).collect::<Vec<_>>();
-                acc.entry(*bar.kind()).or_default().extend(weight);
-                acc
-            },
-        ).into();
+        let weights = dumbbells
+            .iter()
+            .fold(
+                HashMap::<BarKind, Vec<Mass>>::new(),
+                |mut acc, (bar, dumbbells)| {
+                    let weight = dumbbells.iter().map(Dumbbell::weight).collect::<Vec<_>>();
+                    acc.entry(*bar.kind()).or_default().extend(weight);
+                    acc
+                },
+            )
+            .into();
 
         let dumbbells: HashMap<BarKind, HashMap<Bar, Vec<Dumbbell>>> =
             dumbbells

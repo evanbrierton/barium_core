@@ -7,10 +7,11 @@ license = "MIT"
 
 [dependencies]
 anyhow = "1.0.99"
-clap = "4.5.45"
+clap = "4.5.47"
 derive_more = { version = "2.0.1", features = ["into_iterator", "from", "display"] }
 itertools = "0.14.0"
 petgraph = "0.8.2"
 serde = { version = "1.0.219", features = ["derive"] }
 strum = { version = "0.27.2", features = ["derive"] }
 thiserror = "2.0.16"
+uom = { version = "0.37.0",  features = ["autoconvert", "u32", "si", "std", "serde"]}
