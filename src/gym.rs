@@ -163,11 +163,10 @@ impl Gym {
                 ))?;
 
             for bar in bars {
-                if let Some(dumbbell) = state.get(bar) {
-                    if *dumbbell.weight() == requirements[requirement_index].weight() {
+                if let Some(dumbbell) = state.get(bar)
+                    && *dumbbell.weight() == requirements[requirement_index].weight() {
                         result.entry(*bar).or_default().push(dumbbell);
                     }
-                }
             }
 
             if requirement_index < requirements.len() - 1 {
@@ -185,11 +184,10 @@ impl Gym {
                 let bars = self.bar_options.get(&requirement.bar_kind())?;
 
                 for bar in bars {
-                    if let Some(dumbbell) = state.get(bar) {
-                        if requirement.matches(dumbbell) {
+                    if let Some(dumbbell) = state.get(bar)
+                        && requirement.matches(dumbbell) {
                             return Some((*i, dumbbell.plates().len()));
                         }
-                    }
                 }
                 None
             })
