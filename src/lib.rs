@@ -3,6 +3,7 @@
 mod bar;
 mod bar_kind;
 mod dumbbell;
+mod format;
 mod gym;
 mod gym_error;
 mod gym_state;

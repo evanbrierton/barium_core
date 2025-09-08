@@ -1,11 +1,9 @@
 use std::fmt::Display;
 
 use serde::{Deserialize, Serialize};
-use uom::si::{
-    length::centimeter,
-    mass::kilogram,
-    rational64::{Length, Mass},
-};
+use uom::si::rational64::{Length, Mass};
+
+use crate::format;
 
 #[derive(Clone, Copy, Debug, PartialEq, Eq, Hash, PartialOrd, Ord, Serialize, Deserialize)]
 pub struct Plate {
@@ -35,8 +33,8 @@ impl Display for Plate {
         write!(
             f,
             "({}cm) {}kg",
-            self.gauge.get::<centimeter>(),
-            self.weight.get::<kilogram>(),
+            format::length_to_dec_string(self.gauge),
+            format::mass_to_dec_string(self.weight)
         )
     }
 }

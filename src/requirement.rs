@@ -1,11 +1,11 @@
 use std::{fmt::Display, str::FromStr};
 
 use rational_extensions::{MinMax, try_from_dec_str};
-use uom::si::{mass::kilogram, rational64::Mass};
+use uom::si::rational64::Mass;
 
 use uom::num_rational::Rational64;
 
-use crate::{BarKind, Dumbbell, GymError};
+use crate::{BarKind, Dumbbell, GymError, format};
 
 #[derive(Debug, Clone, Copy)]
 pub struct Requirement {
@@ -21,7 +21,7 @@ impl Requirement {
 
     #[must_use]
     pub fn matches(self, dumbbell: &Dumbbell) -> bool {
-        self.weight == dumbbell.weight() && self.bar_kind == *dumbbell.bar().kind()
+        self.weight == *dumbbell.weight() && self.bar_kind == *dumbbell.bar().kind()
     }
 
     #[must_use]
@@ -53,7 +53,12 @@ impl Requirement {
 
 impl Display for Requirement {
     fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
-        write!(f, "{}kg {}", self.weight.get::<kilogram>(), self.bar_kind)
+        write!(
+            f,
+            "{}kg {}",
+            format::mass_to_dec_string(self.weight),
+            self.bar_kind
+        )
     }
 }
 

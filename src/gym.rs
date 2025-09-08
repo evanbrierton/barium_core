@@ -1,4 +1,4 @@
-use std::collections::{HashMap, HashSet};
+use std::collections::{BTreeMap, HashMap, HashSet};
 
 use itertools::Itertools;
 use petgraph::{algo, prelude::UnGraphMap};
@@ -18,13 +18,13 @@ pub struct Gym {
 impl Gym {
     #[must_use]
     pub fn new(plates: &[Plate], bars: &[Bar]) -> Self {
-        let plate_counts: HashMap<Plate, usize> =
-            plates.iter().fold(HashMap::new(), |mut acc, plate| {
+        let plate_counts: BTreeMap<Plate, usize> =
+            plates.iter().fold(BTreeMap::new(), |mut acc, plate| {
                 *acc.entry(*plate).or_default() += 1;
                 acc
             });
 
-        let dumbbells: HashMap<Bar, Vec<Dumbbell>> = bars
+        let dumbbells: BTreeMap<Bar, Vec<Dumbbell>> = bars
             .iter()
             .map(|bar| (*bar, Self::dumbbells(&plate_counts, bar)))
             .collect();
@@ -164,7 +164,7 @@ impl Gym {
 
             for bar in bars {
                 if let Some(dumbbell) = state.get(bar) {
-                    if dumbbell.weight() == requirements[requirement_index].weight() {
+                    if *dumbbell.weight() == requirements[requirement_index].weight() {
                         result.entry(*bar).or_default().push(dumbbell);
                     }
                 }
@@ -279,11 +279,14 @@ impl Gym {
         Ok(path)
     }
 
-    fn dumbbells(weights_map: &HashMap<Plate, usize>, bar: &Bar) -> Vec<Dumbbell> {
+    fn dumbbells(weights_map: &BTreeMap<Plate, usize>, bar: &Bar) -> Vec<Dumbbell> {
         Self::available_dumbbells(
             &weights_map
                 .iter()
-                .filter(|(_, count)| *count >= &bar.kind().required_similar_plates())
+                .rev()
+                .filter(|(plate, count)| {
+                    *count >= &bar.kind().required_similar_plates() && plate.gauge() == bar.gauge()
+                })
                 .map(|(plate, count)| (*plate, count / bar.kind().required_similar_plates()))
                 .flat_map(|(plate, count)| vec![plate; count])
                 .collect::<Vec<_>>(),
