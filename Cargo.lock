@@ -16,7 +16,7 @@ checksum = "c08606f8c3cbf4ce6ec8e28fb0014a2c086708fe954eaa885384a6165172e7e8"
 
 [[package]]
 name = "barium_core"
-version = "0.5.7"
+version = "0.5.8"
 dependencies = [
  "derive_more",
  "itertools",
@@ -191,9 +191,9 @@ dependencies = [
 
 [[package]]
 name = "rational_extensions"
-version = "0.4.2"
+version = "0.4.7"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b04c3cefca2aa8d43de4c9c59a0a2fa6b2659f3fb15b7690eefd4f42fefc9693"
+checksum = "dcd2ac4ce56994410977a146bcd688908587666654be3eafe1c125540138e700"
 dependencies = [
  "num-integer",
  "num-rational",
