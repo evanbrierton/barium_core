@@ -15,6 +15,8 @@ pub struct Gym {
     weights: Weights,
 }
 
+
+
 impl Gym {
     #[must_use]
     pub fn new(plates: &[Plate], bars: &[Bar]) -> Self {
@@ -112,7 +114,6 @@ impl Gym {
     /// # Errors
     /// If it is impossible to construct a dumbbell for a requirement given the user's plates.
     ///
-    #[allow(clippy::needless_pass_by_value)]
     pub fn workout(&self, requirements: &[Requirement]) -> Result<Workout, GymError> {
         let requirements_by_kind: HashMap<BarKind, Vec<Requirement>> =
             requirements.iter().fold(HashMap::new(), |mut acc, req| {
@@ -317,5 +318,64 @@ impl Gym {
         }
 
         graph
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use std::str::FromStr;
+
+    use uom::num_rational::Rational64;
+    use uom::si::{
+        length::centimeter,
+        mass::kilogram,
+        rational64::{Length, Mass},
+    };
+
+    use crate::{Bar, BarKind, Gym, Plate, Requirement};
+
+    fn plate_r(weight_kg: Rational64, count: usize) -> Vec<Plate> {
+        let mut v = Vec::with_capacity(count);
+        for _ in 0..count {
+            v.push(Plate::new(
+                Mass::new::<kilogram>(weight_kg),
+                Length::new::<centimeter>(Rational64::from_integer(5)),
+            ));
+        }
+        v
+    }
+
+    #[test]
+    fn workout_for_30b_40b_45b_with_given_inventory() {
+        let bar = Bar::new(
+            Mass::new::<kilogram>(Rational64::from_integer(15)),
+            Length::new::<centimeter>(Rational64::from_integer(5)),
+            BarKind::Barbell,
+        );
+
+        let mut plates: Vec<Plate> = Vec::new();
+        plates.extend(plate_r(Rational64::new(5, 2), 12));
+        plates.extend(plate_r(Rational64::from_integer(5), 2));
+        plates.extend(plate_r(Rational64::from_integer(10), 2));
+        plates.extend(plate_r(Rational64::from_integer(15), 2));
+        plates.extend(plate_r(Rational64::from_integer(20), 2));
+
+        let gym = Gym::new(&plates, &[bar]);
+
+        let requirements = vec![
+            Requirement::from_str("30b").unwrap(),
+            Requirement::from_str("40b").unwrap(),
+            Requirement::from_str("45b").unwrap(),
+        ];
+
+        let workout = gym.workout(&requirements).expect("workout should succeed");
+        let dumbbells = workout.get(bar);
+
+        println!("{workout:}");
+
+        assert_eq!(dumbbells.len(), 3);
+        assert_eq!(dumbbells[0].weight().get::<kilogram>(), Rational64::from_integer(30));
+        assert_eq!(dumbbells[1].weight().get::<kilogram>(), Rational64::from_integer(40));
+        assert_eq!(dumbbells[2].weight().get::<kilogram>(), Rational64::from_integer(45));
     }
 }
